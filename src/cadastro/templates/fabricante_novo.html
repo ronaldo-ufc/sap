@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% import "forms.html" as forms %}
+{% import "uteis.html" as functions %}
+{% import "funcoes.html" as msg %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            {{ msg.message( mensagem )}}
+            {{ msg.messageErro( mensagemErro )}}
+            <!--{{ forms.error_message(form, mensagem)}}-->
+        </div>
+        <div class="col-md-10 col-md-offset-1">
+
+            <div class="panel panel-default">
+                <div class="panel-heading"><h4>Cadastrar Nova Marca</h4></div>
+                <div class="panel-body">
+                    <form name="pesquisa" action="" method="POST">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="fabricante" class="control-label">Nome</label>
+                                <input name="fabricante" type="text" class="form-control" id="fabricante" required>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group"><br>
+                                    <button  type="submit" class="btn btn-primary">
+                                        <i class="fas fa-save"></i> Salvar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="panel panel-default table-responsive">
+                <div class="panel-heading">Fabricantes</div>
+                <div class="panel-body">
+                <div class="col-md-2">
+                        <div class="form-group">
+                        </div>
+                    </div>
+
+                    <table class="table table-condensed table-hover table-striped" id="tabela">
+                        <thead class="bg-primary">
+                            <tr><td>Nome</td><td>Gerenciar Modelo</td><td class="text-center">Excluir</td></tr>
+                        </thead>
+                        <tbody id="tbody">
+                            {% for fabricante in fabricantes %}
+                            <tr id="trItens">
+                                <td>{{fabricante.getNome}}</td>
+                                <td class="col-lg-1 bg-success"> <p class="text-center"><a href="modelo/{{fabricante.getFabricante_id}}"><i class="fas fa-cog"></i></a></p></td>
+                                <td style="width: 50px;" class="text-center bg-danger" data-toggle="modal" data-target="#modalExcluir"><a onclick="btnExcluir(' fabricante/delete/{{fabricante.getFabricante_id}} ', 'Excluir marca' , 'Deseja realmente excluir a marca?')"  id="btnExcluir" style="cursor: pointer;"> <i class="far fa-trash-alt"></i> </a></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{ functions.modalExcluir() }}
+{% endblock %}

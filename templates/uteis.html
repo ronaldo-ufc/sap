@@ -1,0 +1,194 @@
+{% macro modalItens() %}
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Cadastro de Item: <span id="titulo"></span></h4>
+      </div>
+      <div class="modal-body">
+        <div style="display: none" id="alerta" class="alert alert-info alert-dismissable">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          <span id="mensagem"></span>
+        </div>
+        <input type="hidden" id="item" value="">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="nome">Nome</label>
+              <input class="form-control" id="nome_item" name="nome_item" type="text" value="" required>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group">
+              <label id="sigla" for="sigla_item" >Sigla</label>
+              <input class="form-control" id="sigla_item" name="sigla_item" type="hidden" value="" >
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-group">
+              <button id="btnSalvarItens" type="button" class="btn btn-info" >
+                <i class="far fa-save"></i> Salvar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="btnSairModalItens" type="button" class="btn btn-warning" data-dismiss="modal">
+          <span class="glyphicon glyphicon-log-out"></span> Sair
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endmacro %}
+
+
+{% macro btnAddItens(data, title) %}
+&nbsp;&nbsp;<a style="cursor: pointer" id="btnAdicionar" data-toggle="modal" data-id='{{data}}' data-target="#myModal" title="{{title}}" ><i class="fas fa-plus"></i></a>
+{% endmacro %}
+
+{% macro btnAddEntrada(data, title) %}
+&nbsp;&nbsp;<a style="cursor: pointer" id="btnEntrada" data-toggle="modal" data-id='{{data}}' data-target="#myModal" title="{{title}}" ><i class="fas fa-inbox fa-2x"></i></a>
+{% endmacro %}
+
+{% macro modalExcluir() %}
+<!-- Modal -->
+<div class="modal fade" id="modalExcluir" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modalLabelExcluir"></h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h4 id="mensagemModal"></h4>
+      </div>
+      <div class="modal-footer">
+        <a id="btn_modal_excluir" class="btn btn-danger" href="">Excluir</a>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endmacro %}
+
+{% macro modalRemover() %}
+<!-- Modal -->
+<div class="modal fade" id="modalRemover" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modalLabel">Remover Bem</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h4>Deseja realmente remover o bem da movimentação?</h4>
+      </div>
+      <div class="modal-footer">
+        <input type="hidden" value="" id="input_hidden">
+        <button id="btn_modal_remover" class="btn btn-danger" onclick="patrimonioRemover()" data-dismiss="modal">Remover</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endmacro %}
+
+
+
+{% macro modalReabertura() %}
+<!-- Modal -->
+<div class="modal fade" id="modalReabertura" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modalLabelReabrir">Reabrir Bem</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h4>Deseja realmente reabrir o bem?</h4>
+      </div>
+      <div class="modal-footer">
+        <a id="btn_modal_reabrir" class="btn btn-success" href="">Reabrir</a>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endmacro %}
+
+
+{% macro modalCancelar() %}
+<!-- Modal -->
+<div class="modal fade" id="modalCancelar" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modalLabelCancelar"></h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h4 id="mensagemModalCancel"></h4>
+      </div>
+      <div class="modal-footer">
+        <a id="btn_modal_cancelar" class="btn btn-danger" href="">Confirmar</a>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endmacro %}
+
+{% macro modalEntrada() %}
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modalLabelEntrada"></h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Entrada / <span id="titulo"></span></h4>
+      </div>
+      <form action="entrada" method="POST">
+        <input type="hidden" id="item" name="item" value="">
+        <input type="hidden" id="setor_id" name="setor_id" value="">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="quantidade">Quantidade</label>
+              <input class="form-control" id="quantidade" name="quantidade" type="text" value="" required>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label for="nota" class="control-label">Nota Fis.</label>
+            <select name="nota" class="form-control" id="nota" required>
+              {% for nota in notas  %}
+              <option title="Valor Total R$ {{nota.valor|number_format(2, ',', '.')}}" value="{{nota.nota_codigo}}">{{nota.numero}}</option>
+              {% endfor %}
+
+            </select>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <input class="btn btn-primary" type="submit" value="Salvar">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endmacro %}

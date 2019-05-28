@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% import "forms.html" as forms %}
+{% import "uteis.html" as functions %}
+{% import "funcoes.html" as msg %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <!--{{ forms.error_message(form, mensagem )}}-->
+      {{ msg.messagem(classe, texto)}}
+    </div>
+    <div class="col-md-12">
+
+      <div class="panel panel-default">
+        <div class="panel-heading"><h4>Cadastrar Nota Fiscal</h4></div>
+        <div class="panel-body">
+          <form name="cadNota" action="" method="POST">
+            <div class="row">
+              <div class="col-md-3">
+                <label for="cpf_cnpj" class="control-label">CPF / CNPJ do Fornecedor</label>
+                <input name="cpf_cnpj" type="text" class="form-control mascara-cpfcnpj" id="doc_select" onblur="buscaRazaoSocial()" required>
+              </div>
+
+              <div class="col-md-5">
+                <label for="quantidade">Nome / Razão Social</label>
+                <input disabled="" class="form-control" id="razaosocial_select" type="text" value="">
+              </div>
+
+              <div class="col-md-2">
+                <label for="nota" class="control-label">Número</label>
+                <input name="nota" type="text" class="form-control" id="nota" required>
+              </div>
+
+              <div class="col-md-2">
+                <label for="valor" class="control-label">Valor</label>
+                <label for="dinheiro">R$</label><input name="valor" type="text" id="dinheiro" class="dinheiro form-control" />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group green-border-focus">
+                  <label for="observacao">Descrição</label>
+                  <textarea class="form-control" id="observacao" name="observacao" rows="4"></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-2">
+                <div class="form-group"><br>
+                  <button  type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i> Salvar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">Fornecedor</div>
+        <div class="panel-body table-responsive">
+          <table class="table table-condensed table-hover table-striped" id="tabela">
+            <thead class="bg-primary">
+              <tr>
+                <td>CPF/CNPJ</td>
+                <td>Fornecedor</td>
+                <td>Número</td>
+                <td class="text-center">Valor</td>
+                <td>Excluir</td></tr>
+            </thead>
+            <tbody>
+              {% for nota in notas %}
+              <tr title=" {{nota.descricao}}">
+                <td class="mascara-cpfcnpj">{{nota.fornecedor.cpf_cnpj}}</td>
+                <td >{{nota.fornecedor.nome}}</td>
+                <td>{{nota.numero}}</td>
+                <td class="text-right">R$ {{nota.valor|number_format(2, ',', '.')}} </td>
+                <td style="width: 50px;" class="text-center bg-danger" data-toggle="modal" data-target="#modalExcluir"><a onclick="btnExcluir(' excluir/{{nota.nota_codigo}} ', 'Excluir Nota Fiscal' , 'Deseja realmente excluir essa Nota Fiscal?')"  id="btnExcluir" style="cursor: pointer;"> <i class="far fa-trash-alt"></i> </a></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{{ functions.modalExcluir() }}
+{% endblock %}

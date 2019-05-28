@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% import "forms.html" as forms %}
+{% import "uteis.html" as functions %}
+{% import "funcoes.html" as msg %}
+
+{% block content %}
+
+<div class="col-md-12">
+  {{ msg.messagem(classe, texto)}}
+</div>
+<div class="col-md-12">
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <ul class="nav navbar-nav">
+        <li><a href="../produto"><i class="fas fa-caret-left"></i> Voltar para Materiais</a></li>
+      </ul>
+    </div>
+  </nav>
+</div>
+<div class="col-md-12">
+  <div class="panel panel-default">
+    <div class="panel-heading"><h4><i class="fas fa-sign-out-alt"></i> REGISTRO DE SAÍDA: {{produto.nome}}</h4></div>
+    <div class="panel-body">
+      <form name="cadastro" action="" method="POST">
+        <div class="row">
+          <div class="col-md-12">
+
+            Quantidade em Estoque: <span style="font-size: 16px" class="text-muted">{{produto.quantidade}} {{produto.unidade.nome}}</span> &nbsp;&nbsp;&nbsp;
+            Localização: <span style="font-size: 16px" class="text-muted">{{produto.setor.nome}}</span>
+
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-2">
+
+                <label for="quantidade" class="control-label">Quantidade</label>
+
+                <div class="input-group">
+                  <input name="quantidade" type="number" class="form-control" id="quantidade" required=""><div class="input-group-addon">{{produto.unidade.nome}}</div>
+                </div>
+
+              </div>
+
+              <div class="col-md-4">
+                <label for="setor" class="control-label">Resp. Recebimento</label>
+                <select name="responsavel" class="form-control" id="responsavel">
+                  <option value="0">Informe um responsável</option>
+                  {% for responsavel in responsaveis  %}
+                  <option value="{{responsavel.responsavel_recebimento_codigo}}">{{responsavel.nome}}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label for="setor" class="control-label">Departamento</label>
+                <select name="setor" class="form-control" id="setor" required="">
+                  {% for setor in setores  %}
+                  <option value="{{setor.setor_id}}">{{setor.nome}}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="col-md-2">
+                <label for="os" class="control-label">Núm. O.S</label>
+                <input name="os" type="text" class="form-control" id="os">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-2">
+                <div class="form-group"><br>
+                  <button  type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i> Salvar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+

@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% import "funcoes.html" as msg %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+      <div class="col-md-12">
+          {{ msg.message(mensagem)}}
+          {{ msg.messageErro(mensagemErro)}}
+      </div>
+
+    <div class="col-md-12">
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <ul class="nav navbar-nav">
+            <li><a href="novo"><i class="fas fa-box-open"></i> Criar Novo Modelo</a></li>
+            <li ><a href="../show"><i class="fas fa-sign-in-alt"></i> Ir para Ativos</a></li>
+
+          </ul>
+        </div>
+      </nav>
+    </div>
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading"><h4>Gerenciar Modelo</h4></div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-12">
+              <table id="tabela" class="table table-striped table-bordered table-condensed">
+                <thead class="bg-primary">
+                  <tr><th >...</th><th >Nome</th><th>Categoria</th><th>Fabricante</th><th>Modelo</th><th class="text-center">Excluir</th></tr>
+                </thead>
+                <tbody>
+                  {% for template in templates %}
+                  <tr>
+                    <th style="width: 55px"><img style="width: 50px;" class="img-thumbnail img-responsive" src="../../uploads/imagem/{{template.foto}}">
+                    </th>
+                    <td ><a href="novo/modelo/{{template.template_id}}"> {{template.nome}}</a></td>
+                    <td > {{template.categoria.nome}}</td>
+                    <td > {{template.fabricante.nome}}</td>
+                    <td > {{template.modelo.nome}}</td>
+                    <td class="col-md-1 text-center bg-danger"><a href=""> <i class="far fa-trash-alt"></i></a></td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

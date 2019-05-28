@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% import "forms.html" as forms %}
+{% import "uteis.html" as functions %}
+{% import "funcoes.html" as msg %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <!--{{ forms.error_message(form, mensagem )}}-->
+      {{ msg.messagem(classe, texto)}}
+    </div>
+    <div class="col-md-12">
+
+      <div class="panel panel-default">
+        <div class="panel-heading"><h4>Cadastrar Fornecedor</h4></div>
+        <div class="panel-body">
+          <form name="pesquisa" action="" method="POST">
+            <div class="row">
+              <div class="col-md-4">
+                <label for="fornecedor" class="control-label">Nome / Razão Social</label>
+                <input name="fornecedor" type="text" class="form-control" id="fornecedor" required>
+              </div>
+              <div class="col-md-4">
+                <label for="cpf_cnpj" class="control-label">CPF / CNPJ</label>
+                <input name="cpf_cnpj" type="text" class="form-control mascara-cpfcnpj" id="cpf_cnpj" required>
+              </div>
+              <div class="col-md-4 text-center">
+                <div class="btn-group" data-toggle="buttons">
+                  <label class="btn btn-default active">
+                    <input value="J" type="radio" name="tipo" id="tipo_J" autocomplete="off" checked> Pessoa Jurídica
+                  </label>
+                  <label class="btn btn-default">
+                    <input value="F" type="radio" name="tipo" id="tipo_F" autocomplete="off"> Pessoa Física
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-2">
+                <div class="form-group"><br>
+                  <button  type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i> Salvar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">Fornecedor</div>
+        <div class="panel-body table-responsive">
+          <table class="table table-condensed table-hover table-striped" id="tabela">
+            <thead class="bg-primary">
+              <tr><td>Nome</td><td>CPF/CNPJ</td><td>Tipo</td><td>Excluir</td></tr>
+            </thead>
+            <tbody>
+              {% for fornecedor in fornecedores %}
+              <tr>
+                <td>{{fornecedor.getNome}}</td>
+                <td class="mascara-cpfcnpj">{{fornecedor.cpf_cnpj}}</td>
+                <td>{{fornecedor.tipoNome}}</td>
+                <td style="width: 50px;" class="text-center bg-danger" data-toggle="modal" data-target="#modalExcluir"><a onclick="btnExcluir(' fornecedor/delete/{{fornecedor.fornecedor_codigo}} ', 'Excluir fornecedor' , 'Deseja realmente excluir o fornecedor?')"  id="btnExcluir" style="cursor: pointer;"> <i class="far fa-trash-alt"></i> </a></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{{ functions.modalExcluir() }}
+{% endblock %}
