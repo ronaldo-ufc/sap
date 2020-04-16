@@ -16,7 +16,7 @@ $auth = function ($request, $response, $next) {
       
     $twig->addGlobal('current_user', $aut);
     $twig->addGlobal('menus_pais', $menus_pais);
-    
+    $twig->addGlobal('inicio_current_ano', date('Y-01-01'));
     $response = $next($request, $response);
     return $response;
 };

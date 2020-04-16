@@ -52,7 +52,7 @@ class Produto {
             . "nome ilike ? and "
             . "cast (unidade_codigo as text) like ? and "
             . "cast (grupo_codigo as text) like ? and "
-            . "observacao ilike ? order by produto_codigo desc";
+            . "observacao ilike ? order by nome ";
     $stmt = DBSiap::getSiap()->prepare($sql);
     $stmt->execute(array($barras, $nome, $unidade, $grupo, $observacao));
     $rows = $stmt->fetchAll();
@@ -122,6 +122,16 @@ class Produto {
     return $result;
   }
   
+  static function getAllCodigos(){
+    $produtos = Produto::getAll();
+    $result = array();
+    foreach ($produtos as $produto){
+      array_push($result, $produto->getProduto_codigo());
+    }
+    return $result;
+  }
+
+
   public function getProduto_codigo() {
     return $this->produto_codigo;
   }
@@ -226,6 +236,7 @@ class Produto {
   public function setCodigo_barras($codigo_barras) {
     $this->codigo_barras = $codigo_barras;
   }
+  
   public function get_Quantidade(){
     $sql = "select * from sap.item_quantidade(?, ?)";
     $stmt = DBSiap::getSiap()->prepare($sql);

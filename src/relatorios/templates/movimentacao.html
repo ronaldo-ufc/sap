@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="col-md-12">
+  <div class="row">
+
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading"><h4><i class="fas fa-print"></i> RELATÓRIO DE MOVIMENTAÇÃO DE PRODUTOS</h4></div>
+        <div class="panel-body">
+          <div class="col-md-6">
+            <div class="panel panel-default">
+              <div class="panel-heading"><h4>Produtos</h4></div>
+              <div class="panel-body">
+                <table class="table table-condensed table-hover">
+                  <thead class="bg-primary">
+                    <tr>
+                      <th>Descrição</th>
+                      <th class="text-center">Ações</th>
+                    </tr>
+                  </thead>
+                  <tbody class="produtos">
+                    {% for produto in produtos %}
+                    <tr id="{{produto.produto_codigo}}">
+                      <td  title="{{produto.observacao}}">
+                        <input type="hidden" name="produtos[]" value="{{produto.produto_codigo}}">
+                        {{produto.nome}}</td>
+                      <td class="col-md-2 text-center">
+                        <a id="{{produto.produto_codigo}}_adicionar" onclick="adicionarMaterial({{produto.produto_codigo}})"> <i style="color: #008000" class="far fa-plus-square"></i></a>
+                        <a id="{{produto.produto_codigo}}_remover"
+                           onclick="removerMaterial({{produto.produto_codigo}})"
+                           style="display: none">
+                          <i style="color: #CC0000" class="far fa-minus-square"></i>
+                        </a>
+                      </td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="panel panel-default">
+              <div class="panel-heading"><h4>Imprimir</h4></div>
+              <div class="panel-body">
+                <form action="" method="POST" >
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label class="control-label">Período</label>
+
+                      <div class="input-group">
+                        <div class="input-group-addon">&nbsp;&nbsp;Início&nbsp;&nbsp;</div>
+                        <input name="data_ini"
+                               type="date"
+                               class="form-control"
+                               required="" value="{{inicio_current_ano}}">
+                      </div>
+                      <div class="input-group">
+                        <div class="input-group-addon">Término</div>
+                        <input name="data_fim" type="date" class="form-control" required="" value="{{ 'now'|date("Y-m-d") }}">
+                      </div>
+                    </div><h5>&nbsp;</h5>
+                    <div class="col-md-12">
+                      <div class="input-group mb-12">
+                        <div class="input-group-prepend">
+                          <label class="input-group-text" for="inputGroupSelect01">Operação</label>
+                        </div>
+                        <select required="" name="operacao" class ="form-control custom-select" id="inputGroupSelect01">
+                          <option value="">Selecione...</option>
+                          <option value="E">Entrada</option>
+                          <option value="S">Saída</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-12" >
+                      <div class="input-group">
+                        <label class="control-label" for="todos">Marque se deseja imprimir todos!</label>
+                        <input name="todos" type="checkbox" class="form-control">
+                      </div>
+                    </div>
+                    <h3>&nbsp;</h3>
+                    <div class="col-md-12">
+                      <table class="table table-condensed table-hover">
+                        <thead class="bg-layout">
+                          <tr>
+                            <th>Produtos</th>
+                            <th class="text-center">Ações</th>
+                          </tr>
+                        </thead>
+                        <tbody class="imprimir">
+
+
+
+                        </tbody>
+                      </table>
+                    </div>
+                    <h5>&nbsp;</h5>
+                    <div class="col-md-3 col-lg-2 col-sm-12">
+                      <button type="submit" class="btn btn-info btn-block">
+                        <i class="fas fa-print"></i> Imprimir</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  function adicionarMaterial(id) {
+  $("#" + id).appendTo(".imprimir");
+  $("#" + id + "_remover").show();
+  $("#" + id + "_adicionar").hide();
+  }
+  function removerMaterial(id) {
+  $("#" + id).appendTo(".produtos");
+  $("#" + id + "_adicionar").show();
+  $("#" + id + "_remover").hide();
+  }
+</script>
+
+{% endblock %}

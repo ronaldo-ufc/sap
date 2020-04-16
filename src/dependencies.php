@@ -1,4 +1,5 @@
 <?php
+use Dompdf\Dompdf;
 define('COD_ALMOXARIFADO', 22);
 
 $container = $app->getContainer();
@@ -38,6 +39,10 @@ $container['flash'] = function () {
 //            ->withRedirect('/siap');
 //    };
 //};
+
+$container['DOMPDF'] = function () {
+   return new Dompdf();
+};
 
 $container['upload_directory_imagem'] = '/var/www/html/siap/uploads/imagem/';
 $container['upload_directory_documento'] = '/var/www/html/siap/uploads/documentos/';

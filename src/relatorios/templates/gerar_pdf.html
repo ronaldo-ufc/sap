@@ -1,8 +1,0 @@
-{% extends "base2.html" %}
-{% import "funcoes.html" as msg %}
-{% import "uteis.html" as functions %}
-{% block content %}
-
-{{dompdf.loadHtml(header)}}
-{{dompdf.render()}}
-{{dompdf.stream("Relatório.pdf", array )}}
