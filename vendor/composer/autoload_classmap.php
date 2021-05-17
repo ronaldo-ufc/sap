@@ -1408,6 +1408,8 @@ return array(
     'siap\\produto\\models\\TemplateProduto' => $baseDir . '/src/produto/models/TemplateProduto.php',
     'siap\\relatorios\\models\\Balanco' => $baseDir . '/src/relatorios/models/Balanco.php',
     'siap\\relatorios\\models\\BalancoEntrada' => $baseDir . '/src/relatorios/models/BalancoEntrada.php',
+    'siap\\relatorios\\models\\BalancoSaida' => $baseDir . '/src/relatorios/models/BalancoSaida.php',
+    'siap\\relatorios\\models\\iMovimentacao' => $baseDir . '/src/relatorios/models/iMovimentacao.php',
     'siap\\relatorios\\relatorio\\Relatorio' => $baseDir . '/src/relatorios/models/Relatorio.php',
     'siap\\setor\\forms\\SetorResponsavelForm' => $baseDir . '/src/setor/forms/SetorResponsavelForm.php',
     'siap\\setor\\models\\AgenteSetorial' => $baseDir . '/src/setor/models/SetorAgente.php',

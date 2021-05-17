@@ -11,7 +11,6 @@ $auth = function ($request, $response, $next) {
         return $response->withRedirect($url);
     }
     
-    return $response->withRedirect('http://10.5.5.10/');
     
     $twig = $this->get('renderer')->getEnvironment();
     $menus_pais = Menu::getPaiByPrivilegio($aut->getUsuarioRol());

@@ -1652,6 +1652,8 @@ class ComposerStaticInit96b062ef7fb5c766b29bfc9e322a8970
         'siap\\produto\\models\\TemplateProduto' => __DIR__ . '/../..' . '/src/produto/models/TemplateProduto.php',
         'siap\\relatorios\\models\\Balanco' => __DIR__ . '/../..' . '/src/relatorios/models/Balanco.php',
         'siap\\relatorios\\models\\BalancoEntrada' => __DIR__ . '/../..' . '/src/relatorios/models/BalancoEntrada.php',
+        'siap\\relatorios\\models\\BalancoSaida' => __DIR__ . '/../..' . '/src/relatorios/models/BalancoSaida.php',
+        'siap\\relatorios\\models\\iMovimentacao' => __DIR__ . '/../..' . '/src/relatorios/models/iMovimentacao.php',
         'siap\\relatorios\\relatorio\\Relatorio' => __DIR__ . '/../..' . '/src/relatorios/models/Relatorio.php',
         'siap\\setor\\forms\\SetorResponsavelForm' => __DIR__ . '/../..' . '/src/setor/forms/SetorResponsavelForm.php',
         'siap\\setor\\models\\AgenteSetorial' => __DIR__ . '/../..' . '/src/setor/models/SetorAgente.php',

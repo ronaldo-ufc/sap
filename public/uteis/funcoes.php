@@ -2,6 +2,17 @@
 
 header('Content-Type: text/html; charset=UTF-8');
 
+function get_post_action($name)
+{
+    $params = func_get_args();
+
+    foreach ($params as $name) {
+        if (isset($_POST[$name])) {
+            return $name;
+        }
+    }
+}
+
 function getMensagem($messages){
   
   #Verificando se tem mensagem de erro

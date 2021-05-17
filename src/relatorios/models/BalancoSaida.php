@@ -58,6 +58,29 @@ class BalancoSaida{
   function imprimir($dompdf){
     $this->relatorio->imprimir($dompdf);
   }
+  
+  function exportar($_produtos, $data_ini, $data_fim) {
+    
+    $produtos = $_produtos == 'TODOS'? Produto::getAllCodigos():$_produtos;    
+    
+    foreach ($produtos as $produto){
+      $i = 0;
+      $balanco = new Balanco();
+      $_balanco = $balanco->getAll($data_ini, $data_fim, $produto, 'S');
+      foreach ($_balanco as $p){
+        if (++$i == 1) {
+          $head = "\n".$p->getNome()."\n";
+          $tblincio = "DATA,LOCAL,QTDE"." ( ".strtolower($p->getUnidade()).")\n";
+          $linhas = "";
+          $total = 0;
+        }
+        $linhas .=  $p->getData().",".$p->getSetor().",".$p->getquantidade()."\n";
+        $total += $p->getQuantidade();
+      }
+      $totalfinal = ', ,Total '. $total;
+      echo $head.$tblincio.$linhas.$totalfinal;
+    }
+  }
 }
 
 

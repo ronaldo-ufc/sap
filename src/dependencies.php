@@ -11,7 +11,8 @@ $container['renderer'] = function ($c) {
     
     $view->addExtension(new \Slim\Views\TwigExtension(
 		$c->router,
-		$c->request->getUri()
+                'http://sistemas.crateus.ufc.br/sap' //$c->request->getUri()
+		
     ));
     return $view;
 };
